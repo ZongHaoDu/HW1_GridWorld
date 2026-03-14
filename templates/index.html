@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridWorld Value Iteration</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <main class="glass-card">
+        <header>
+            <h1>GridWorld AI Solver</h1>
+            <p>Interactive Value Iteration using Markov Decision Processes</p>
+        </header>
+        
+        <div class="controls-panel">
+            <div class="control-group">
+                <label for="grid-size">Grid Size (n x n): <span id="size-val">5</span></label>
+                <input type="range" id="grid-size" min="5" max="9" value="5">
+            </div>
+            
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="start">Set Start</button>
+                <button class="mode-btn" data-mode="end">Set End</button>
+                <button class="mode-btn" data-mode="obstacle">Set Obstacles (<span id="obs-count">0</span>/<span id="obs-max">3</span>)</button>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="btn-init" class="btn primary">Generate Random Strategy</button>
+                <button id="btn-solve" class="btn secondary">Run Value Iteration</button>
+            </div>
+        </div>
+
+        <div class="board-container">
+            <div class="board-header">
+                <div class="board-title">Environment Matrix</div>
+                <div class="legend">
+                    <span class="legend-item"><span class="color-box start-color"></span> Start</span>
+                    <span class="legend-item"><span class="color-box end-color"></span> End</span>
+                    <span class="legend-item"><span class="color-box obs-color"></span> Obstacle</span>
+                </div>
+            </div>
+            <div id="grid-container" class="grid-container"></div>
+        </div>
+        
+        <div class="results-panel" id="results-panel" style="display: none;">
+            <div class="result-board">
+                <h3>Initial Random Policy & Values</h3>
+                <div id="initial-grid" class="grid-container result-grid"></div>
+            </div>
+            <div class="result-board">
+                <h3>Converged Policy & Values</h3>
+                <div id="final-grid" class="grid-container result-grid"></div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
