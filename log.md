@@ -55,5 +55,9 @@ Build a Flask Web Application for a Value Iteration GridWorld solver with dynami
    - `將對話紀錄和你做的甚麼整理在log.md`
    - **Assistant Action**: 擴充 `log.md` 內容，詳細記錄對話歷程、使用者需求與 AI 執行的相對應動作。
 
+5. **User Request 5**:
+   - `撰寫readme.md`
+   - **Assistant Action**: 建立 `README.md`，包含專案功能、安裝流程、啟動方式以及演算法細節。
+
 ## Summary
-The GridWorld application was successfully executed. The backend accurately calculates deterministic MDP value iteration and returns structured values and unicode arrows, displayed dynamically and colored via the Javascript frontend. All rules have been fulfilled, and the interaction logs have been completely documented.
+The GridWorld application was successfully executed. The backend accurately calculates deterministic MDP value iteration and returns structured values and unicode arrows, displayed dynamically and colored via the Javascript frontend. All rules have been fulfilled, documentation (README) has been provided, and the interaction logs have been completely updated.
