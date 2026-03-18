@@ -59,5 +59,13 @@ Build a Flask Web Application for a Value Iteration GridWorld solver with dynami
    - `撰寫readme.md`
    - **Assistant Action**: 建立 `README.md`，包含專案功能、安裝流程、啟動方式以及演算法細節。
 
+6. **User Request 6**:
+   - `在計算完策略後，policy matrix用綠色底色畫出最佳路徑`
+   - **Assistant Action**: 
+     - 在 `script.js` 中新增 `getPath` 函式，追蹤從起點到終點的最佳路徑。
+     - 更新 `renderMatrix` 渲染邏輯，針對路徑上的格子套用 `.path-highlight` 樣式。
+     - 在 `style.css` 中新增 `.path-highlight` 定義綠色底板效果。
+     - 驗證最佳路徑在「Converged Policy Matrix」中能被正確標示。
+
 ## Summary
-The GridWorld application was successfully executed. The backend accurately calculates deterministic MDP value iteration and returns structured values and unicode arrows, displayed dynamically and colored via the Javascript frontend. All rules have been fulfilled, documentation (README) has been provided, and the interaction logs have been completely updated.
+The GridWorld application has been enhanced to visualize the optimal path from start to end in the Policy Matrix using a green highlight. The path calculation follows the converged policy greedy actions. The UI aesthetics remain consistent with the glassmorphism design. All interaction logs have been updated.

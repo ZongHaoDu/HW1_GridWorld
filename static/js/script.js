@@ -171,6 +171,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function getPath(policy, start, end) {
+        let path = [];
+        let curr = { r: start.r, c: start.c };
+        const maxSteps = n * n;
+        let steps = 0;
+
+        const actions = {
+            'U': { r: -1, c: 0 },
+            'D': { r: 1, c: 0 },
+            'L': { r: 0, c: -1 },
+            'R': { r: 0, c: 1 }
+        };
+
+        while (steps < maxSteps) {
+            path.push({ r: curr.r, c: curr.c });
+            if (curr.r === end.r && curr.c === end.c) break;
+
+            const move = policy[curr.r][curr.c];
+            if (!move || move === 'END' || !actions[move]) break;
+
+            const nextR = curr.r + actions[move].r;
+            const nextC = curr.c + actions[move].c;
+
+            // Simple validation to prevent infinite loops if policy is broken
+            if (nextR < 0 || nextR >= n || nextC < 0 || nextC >= n) break;
+            
+            curr = { r: nextR, c: nextC };
+            steps++;
+        }
+        return path;
+    }
+
     function displayResults(data, type) {
         resultsPanel.style.display = 'flex';
 
@@ -186,11 +218,13 @@ document.addEventListener('DOMContentLoaded', () => {
             valTitle.textContent = 'Converged Value Matrix';
             polTitle.textContent = 'Converged Policy Matrix';
             renderMatrix('value-grid', data.final_V, 'value');
-            renderMatrix('policy-grid', data.final_Policy, 'policy');
+            
+            const path = getPath(data.final_Policy, startCell, endCell);
+            renderMatrix('policy-grid', data.final_Policy, 'policy', path);
         }
     }
 
-    function renderMatrix(containerId, matrixData, displayType) {
+    function renderMatrix(containerId, matrixData, displayType, path = []) {
         const container = document.getElementById(containerId);
         container.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
         container.innerHTML = '';
@@ -225,10 +259,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isStart = startCell && startCell.r === r && startCell.c === c;
                 const isEnd = endCell && endCell.r === r && endCell.c === c;
                 const isObs = obstacles.some(o => o.r === r && o.c === c);
+                const isPath = path.some(p => p.r === r && p.c === c);
 
                 if (isStart) cellClass += ' start';
                 else if (isEnd) cellClass += ' end';
                 else if (isObs) cellClass += ' obstacle';
+                
+                if (isPath && displayType === 'policy' && !isStart && !isEnd) {
+                    cellClass += ' path-highlight';
+                }
 
                 cell.className = cellClass;
 
